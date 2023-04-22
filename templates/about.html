@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+     <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-4">
+            <h1>
+              About
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--breadcrumbs end-->
+
+    <!--container start-->
+    <div class="container">
+      <div class="row mar-b-50">
+        <div class="col-lg-5">
+          <div class="about-carousel wow fadeInLeft">
+            <div id="myCarousel" class="carousel slide">
+              <!-- Carousel items -->
+              <div class="carousel-inner">
+                <div class="active item">
+                  <img src="{% static '/assets/img/1.jpg'  %}" alt="">
+                  <div class="carousel-caption">
+                    <p>
+                      Donec luctus ullamcorper nulla
+                    </p>
+                  </div>
+                </div>
+                <div class="item">
+                  <img src="{% static '/assets/img/2.jpg'  %}" alt="">
+                  <div class="carousel-caption">
+                    <p>
+                      Blanditiis praesentium voluptatum
+                    </p>
+                  </div>
+                </div>
+                <div class="item">
+                  <img src="{% static '/assets/img/3.jpg' %}" alt="">
+                  <div class="carousel-caption">
+                    <p>
+                      Blanditiis praesentium voluptatum
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <!-- Carousel nav -->
+              <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <i class="fa fa-angle-left">
+                </i>
+              </a>
+              <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <i class="fa fa-angle-right">
+                </i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 about wow fadeInRight">
+          <h3>About Online Hotel Booking System</h3>
+          <p>Online hotel reservations are a popular method for booking hotel rooms. Travellers can book rooms on a computer by using online security to protect their privacy and financial information and by using several online travel agents to compare prices and facilities at different hotels.</p>
+            <p>Prior to the Internet, travellers could write, telephone the hotel directly, or use a travel agent to make a reservation. Nowadays, online travel agents have pictures of hotels and rooms, information on prices and deals, and even information on local resorts. Many also allow reviews of the traveler to be recorded with the online travel agent.</p>
+            <p>Online hotel reservations are also helpful for making last minute travel arrangements. Hotels may drop the price of a room if some rooms are still available. There are several websites that specialize in searches for deals on rooms.</p>
+        </div>
+      </div>
+
+    </div>
+  {% endblock content %}
+

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Sequence Modern Slider -->
+    <div id="da-slider" class="da-slider" style="top:1px;">
+
+
+      <nav class="da-arrows">
+        <span class="da-arrows-prev">
+        </span>
+        <span class="da-arrows-next">
+        </span>
+      </nav>
+    </div>
+
+
+    <div class="container">
+      <div class="row mar-b-30">
+        <div class="col-md-12">
+          <div class="text-center feature-head wow fadeInDown">
+            <h1 class="" style="margin:30px;">
+              Welcome to Hotel Booking System
+            </h1>
+
+          </div>
+
+
+          <div class="feature-box">
+            <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+              <div class="feature-box-heading">
+                <em>
+                <img src="{% static '/assets/img/1.jpg' %}" alt="" style="width:350px; height:180px;">
+
+                </em>
+                <h4>
+                  <b>Hotel Booking System</b>
+                </h4>
+              </div>
+              <p class="text-center">
+                Online hotel reservations are a popular method for booking hotel rooms. Travellers can book rooms on a computer by using online security to protect their privacy and financial information and by using several online travel agents
+              </p>
+            </div>
+            <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+              <div class="feature-box-heading">
+                <em>
+                  <img src="{% static '/assets/img/2.jpg'  %}" alt="" style="width:350px; height:180px;">
+                </em>
+                <h4>
+                  <b>Online Payment System</b>
+                </h4>
+              </div>
+              <p class="text-center">
+                Online hotel reservations are a popular method for booking hotel rooms. Travellers can book rooms on a computer by using online security to protect their privacy and financial information and by using several online travel agents
+              </p>
+            </div>
+            <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
+              <div class="feature-box-heading">
+                <em>
+                  <img src="{% static '/assets/img/3.jpg'  %}" alt="" style="width:350px; height:180px;">
+                </em>
+                <h4>
+                  <b>Customer Management System</b>
+                </h4>
+              </div>
+              <p class="text-center">
+                Online hotel reservations are a popular method for booking hotel rooms. Travellers can book rooms on a computer by using online security to protect their privacy and financial information and by using several online travel agents
+              </p>
+            </div>
+          </div>
+
+          <!--feature end-->
+        </div>
+      </div>
+    </div>
+
+
+    <!--property start-->
+    <div class="property gray-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-sm-6 text-center wow fadeInLeft">
+            <img src="{% static '/assets/img/p3.jpg'  %}" alt="" style="height:335px; width:560px">
+          </div>
+          <div class="col-lg-6 col-sm-6 wow fadeInRight">
+            <h1>
+              About Hotel Booking System
+            </h1>
+            <hr>
+            <p>Online hotel reservations are a popular method for booking hotel rooms. Travellers can book rooms on a computer by using online security to protect their privacy and financial information and by using several online travel agents to compare prices and facilities at different hotels.</p>
+            <p>Prior to the Internet, travellers could write, telephone the hotel directly, or use a travel agent to make a reservation. Nowadays, online travel agents have pictures of hotels and rooms, information on prices and deals, and even information on local resorts. Many also allow reviews of the traveler to be recorded with the online travel agent.</p>
+            <p>Online hotel reservations are also helpful for making last minute travel arrangements. Hotels may drop the price of a room if some rooms are still available. There are several websites that specialize in searches for deals on rooms.</p>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--property end-->
+    <script type="text/javascript" src="{% static '/assets/js/parallax-slider/jquery.cslider.js' %}"></script>
+	<script type="text/javascript">
+		  $(function() {
+
+			$('#da-slider').cslider({
+			  autoplay    : true,
+			  bgincrement : 100
+			});
+
+		  });
+	</script>
+  {% endblock content %}
+

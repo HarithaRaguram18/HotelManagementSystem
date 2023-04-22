@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+{% block content %}
+<script>
+$(document).on("click", ".delete-dialog", function () {
+  var id = $(this).data('id');
+	$("#recordID").val( id );
+});
+function delete_record(room_id)
+{
+	location.href = "/room/delete/"+$("#recordID").val();
+}
+</script>
+<style>
+.listing {
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid;
+	text-align: center;
+	width: 260px;
+}
+
+.headerl {
+    font-weight: bold;
+    background-color: #1765a6;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 4px;
+    margin: 10px 0px;
+    font-size: 15px;
+}
+</style>
+
+    <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-4">
+            <h1>
+              {{ heading }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- //breadcrumbs -->
+
+<div class="container">
+		<div class="row">
+			{% if messages %}
+				<div class="alert alert-success fade in" style="margin:10px;">
+					{% for message in messages %}
+						<strong>{{ message }}</strong>
+					{% endfor %}
+				</div>
+		  {% endif %}
+		  <div class="col-lg-12">
+					<div class="row">
+						{% for room in roomlist %}
+							<div class="col listing">
+								<div class="headerl">{{room.type_name}} - {{room.bed_name}}</div>
+								<img src="{{room.room_image}}" style="height:150px; width:240px"><br>
+								<div style="color: #FF0000; font-size: 17px; padding: 5px;">Rs. {{room.room_price}}.00/-</div>
+							</div>
+						{% endfor %}	
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

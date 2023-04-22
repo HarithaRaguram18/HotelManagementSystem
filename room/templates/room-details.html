@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% block content %}
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-4">
+        <h1>
+            {{roomdetails.type_name}}
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //breadcrumbs -->
+
+<div class="typo">
+  <div class="container">
+    <div class="typo-grids">
+      <center>
+          {% csrf_token %}
+          <div class="col-sm-12">
+              <form enctype="multipart/form-data" method="post" action="/room/payment">
+                {% csrf_token %}
+              <table style="width:100%; margin:20px;">
+                <tr>
+                  <td style="vertical-align:top; padding:20px; width:60%">
+                    <table>
+                      <tr>
+                        <td class="td_color" rowspan="8" style="width:40%"><img src="{{roomdetails.room_image}}" style="width: 400px; height: 300px;l"></td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">Name</th>
+                        <td class="td_color">{{roomdetails.room_name}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">Type</th>
+                        <td class="td_color">{{roomdetails.type_name}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">Bed</th>
+                        <td class="td_color">{{roomdetails.bed_name}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">Price</th>
+                        <td class="td_color">{{roomdetails.room_price}}.00/-</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">From Date</th>
+                        <td class="td_color">{{from_date}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">To Date</th>
+                        <td class="td_color">{{to_date}}</td>
+                      </tr>
+                      <tr>
+                        <th class="th_color" style="width:160px;">Total Person</th>
+                        <td class="td_color">{{total_person}} Person</td>
+                      </tr>
+                      <tr>
+                          <td colspan="3" align="right" style="padding: 10px 0px">
+                              <button type="submit" class="btn btn-primary" style="width:150px; font-weight:bold">Continue to Booking</button>
+                          </td>
+                      </tr>
+                      
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <input type="hidden" name="room_id" value="{{roomdetails.room_id}}">
+              <input type="hidden" name="room_price" value="{{roomdetails.room_price}}">
+            </form>
+          </div>
+      </center>
+    </div>
+  </div>
+</div>
+<!--container end-->
+{% endblock content %}

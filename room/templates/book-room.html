@@ -1,0 +1,93 @@
+{% extends 'base.html' %} {% block content %}
+<!--breadcrumbs start-->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-sm-4">
+        <h1>
+          Search Your Room
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //breadcrumbs -->
+<script>
+	jQuery(function () {
+		jQuery("#from_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'mm/dd/yy'
+		});
+    jQuery("#to_date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "0:+1",
+			dateFormat: 'mm/dd/yy'
+		});
+	});
+</script>
+<div class="typo">
+  <div class="container">
+    <div class="typo-grids">
+      <center>
+        <form enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          </br>
+          {% if messages %}
+          <div class="alert alert-success fade in" style="margin:10px;">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-9">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">From Date</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="from_date" id="from_date" placeholder="From Date" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">To Date</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="to_date" id="to_date" placeholder="To Date" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Total Persons</label>
+              <div class="col-sm-8">
+                <select name="total_person" required class="form-control" placeholder="Room Type" autofocus=""
+                  required />
+                    <option value="1">1 Person</option>
+                    <option value="2">2 Person</option>
+                    <option value="3">3 Person</option>
+                    <option value="4">4 Person</option>
+                    <option value="5">5 Person</option>
+                    <option value="6">6 Person</option>
+                    <option value="7">7 Person</option>
+                    <option value="8">8 Person</option>
+                    <option value="9">9 Person</option>
+                    <option value="10">10 Person</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Search Room</button>
+              </div>
+            </div>
+            <input type="hidden" name="act" value="save_room">
+            <input type="hidden" name="avail_image" value="{{roomdetails.room_image}}">
+            <input type="hidden" name="room_id" value="{{roomdetails.room_id}}">
+          </div>
+          <div class="col-sm-2">&nbsp;</div>
+        </form>
+      </center>
+    </div>
+  </div>
+</div>
+<!--container end-->
+{% endblock content %}
