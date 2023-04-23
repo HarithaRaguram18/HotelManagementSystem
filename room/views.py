@@ -51,7 +51,7 @@ def payment(request):
     today = date.today()
     todayDate = today.strftime("%B %d, %Y")
 
-    if (request.method == "POST" and 'order_amount' in request.POST):
+    if (request.method == "POST" and 'order_amount' in request.POST): 
         date_format = "%m/%d/%Y"
         from_date = datetime.strptime(request.session.get('from_date', None), date_format)
         to_date = datetime.strptime(request.session.get('to_date', None), date_format)
@@ -60,17 +60,19 @@ def payment(request):
         cursor = connection.cursor()
         cursor.execute("""
 		   INSERT INTO booking
-		   SET `booking_user_id` = %s, `booking_room_id` = %s, `booking_from_date` = %s, `booking_to_date` = %s, `booking_persons` = %s, `booking_room_price` = %s, `booking_total_cost` = %s, `booking_days` = %s, `booking_date` = %s
+		   SET `booking_user_id` = %s, `booking_room_id` = %s, `booking_from_date` = %s, `booking_to_date` = %s, `booking_persons` = %s, `room_price` = %s, `booking_total_cost` = %s, `booking_days` = %s, `booking_date` = %s
 		""", (
             request.session.get('user_id', None),
             request.POST['room_id'],
             request.session.get('from_date', None),
             request.session.get('to_date', None),
             request.session.get('total_person', None),
-            request.POST['booking_room_price'],
+            request.POST['room_price'],
             request.POST['order_amount'],
             total_days,
             todayDate))
+        
+        print('Checking',cursor.lastrowid);
         bookingId = cursor.lastrowid
         return redirect('order-items/'+str(bookingId))
     else:
@@ -80,9 +82,10 @@ def payment(request):
         total_days = to_date - from_date
 
         totalAmount = (int(request.POST['room_price']) * int(total_days.days))
+        print('Checking1',request.POST['room_price'],request.POST['room_id'])
         context = {
             "totalAmount": totalAmount,
-            "booking_room_price": request.POST['room_price'],
+            "room_price": request.POST['room_price'],
             "room_id": request.POST['room_id']
         }
     # Message according Room #

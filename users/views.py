@@ -6,6 +6,8 @@ from django.core.files.storage import FileSystemStorage
 from .models import role, user, city, state, country
 from django.contrib import messages
 
+from .usersmodule.module import checkloginpassword
+
 # Create your views here.
 def index(request):
     if(request.session.get('authenticated', False) == True):
@@ -24,16 +26,23 @@ def index(request):
             context['message'] = "Wrong username"
             context['error'] = True
             return render(request,'login.html', context)
-        if(getUser.user_password == request.POST['password']):
-            request.session['authenticated'] = True
-            request.session['user_id'] = getUser.user_id
-            request.session['user_level_id'] = getUser.user_level_id
-            request.session['user_name'] = getUser.user_name
-            return redirect('/users/dashboard')
+        
+        canlogin = checkloginpassword(request.POST['password'])
+        if canlogin == True:
+            if(getUser.user_password == request.POST['password'] ):
+                    request.session['authenticated'] = True
+                    request.session['user_id'] = getUser.user_id
+                    request.session['user_level_id'] = getUser.user_level_id
+                    request.session['user_name'] = getUser.user_name
+                    return redirect('/users/dashboard')
+            else:
+                context['message'] = "Wrong Password"
+                context['error'] = True
+                return render(request,'login.html', context)
         else:
-            context['message'] = "Wrong Password"
-            context['error'] = True
-            return render(request,'login.html', context)
+                    context['message'] = canlogin
+                    context['error'] = True
+                    return render(request,'login.html', context)
     else:
         return render(request,'login.html', context)
 
@@ -97,24 +106,30 @@ def update(request, userId):
                 fs = FileSystemStorage()
                 filename = fs.save(userImage.name, userImage)
                 user_image = fs.url(userImage)
+            if (request.POST['user_password']):
+                canregister = checkloginpassword(request.POST['user_password'])
+
+                if canregister == True:
+                
+                    addUser = user(
+                    user_id = userId,
+                    user_name = request.POST['user_name'],
+                    user_username = request.POST['user_username'],
+                    user_email = request.POST['user_email'],
+                    user_password = request.POST['user_password'],
+                    user_mobile = request.POST['user_mobile'],
+                    user_gender = request.POST['user_gender'],
+                    user_dob = request.POST['user_dob'],
+                    user_add1 = request.POST['user_add1'],
+                    user_add2 = request.POST['user_add2'],
+                    user_city = request.POST['user_city'],
+                    user_country = request.POST['user_country'],
+                    user_state = request.POST['user_state'],
+                    user_image = user_image)
+                    addUser.save()
+                else:
+                        return HttpResponse(canregister)
             
-            addUser = user(
-            user_id = userId,
-            user_name = request.POST['user_name'],
-            user_username = request.POST['user_username'],
-            user_email = request.POST['user_email'],
-            user_password = request.POST['user_password'],
-            user_mobile = request.POST['user_mobile'],
-            user_gender = request.POST['user_gender'],
-            user_dob = request.POST['user_dob'],
-            user_add1 = request.POST['user_add1'],
-            user_add2 = request.POST['user_add2'],
-            user_city = request.POST['user_city'],
-            user_country = request.POST['user_country'],
-            user_state = request.POST['user_state'],
-            user_image = user_image)
-            
-            addUser.save()
         except Exception as e:
             return HttpResponse('Something went wrong. Error Message : '+ str(e))
 
@@ -148,21 +163,28 @@ def add(request):
                 userImage = request.FILES['user_image']
                 fs = FileSystemStorage()
                 filename = fs.save(userImage.name, userImage)
-                user_image = fs.url(userImage)
+                user_image = fs.url(filename)
 
-            addUser = user(user_name = request.POST['user_name'],
-            user_username = request.POST['user_username'],
-            user_email = request.POST['user_email'],
-            user_password = request.POST['user_password'],
-            user_mobile = request.POST['user_mobile'],
-            user_gender = request.POST['user_gender'],
-            user_dob = request.POST['user_dob'],
-            user_add1 = request.POST['user_add1'],
-            user_city = request.POST['user_city'],
-            user_country = request.POST['user_country'],
-            user_state = request.POST['user_state'],
-            user_image = user_image)
-            addUser.save()
+            if (request.POST['user_password']):
+                canregister = checkloginpassword(request.POST['user_password'])
+
+                if canregister == True:
+                    addUser = user(user_name = request.POST['user_name'],
+                    user_username = request.POST['user_username'],
+                    user_email = request.POST['user_email'],
+                    user_password = request.POST['user_password'],
+                    user_mobile = request.POST['user_mobile'],
+                    user_gender = request.POST['user_gender'],
+                    user_dob = request.POST['user_dob'],
+                    user_add1 = request.POST['user_add1'],
+                    user_city = request.POST['user_city'],
+                    user_country = request.POST['user_country'],
+                    user_state = request.POST['user_state'],
+                    user_image = user_image)
+                    addUser.save()
+                else:
+                    return HttpResponse(canregister)
+
         except Exception as e:
             return HttpResponse('Something went wrong. Error Message : '+ str(e))
         messages.add_message(request, messages.INFO, "Your account has been registered successfully. Login with your credentials !!!")
@@ -181,11 +203,17 @@ def logout(request):
 def changepassword(request):
     if (request.method == "POST"):
         try:
-            addUser = user(
-                user_id = request.session.get('user_id', None),
-                user_password = request.POST['user_new_password']
-            )
-            addUser.save(update_fields=["user_password"])
+
+            if (request.POST['user_new_password']):
+                canchnagepassword = checkloginpassword(request.POST['user_new_password'])
+                if canchnagepassword == True:
+                    addUser = user(
+                        user_id = request.session.get('user_id', None),
+                        user_password = request.POST['user_new_password']
+                    )
+                    addUser.save(update_fields=["user_password"])
+                else:
+                    return HttpResponse(canchnagepassword)
         except Exception as e:
             return HttpResponse('Something went wrong. Error Message : '+ str(e))
         messages.add_message(request, messages.INFO, "Your Password has been changed successfully !!!")
