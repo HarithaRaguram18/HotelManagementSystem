@@ -60,7 +60,7 @@ def payment(request):
         cursor = connection.cursor()
         cursor.execute("""
 		   INSERT INTO booking
-		   SET `booking_user_id` = %s, `booking_room_id` = %s, `booking_from_date` = %s, `booking_to_date` = %s, `booking_persons` = %s, `room_price` = %s, `booking_total_cost` = %s, `booking_days` = %s, `booking_date` = %s
+		   SET `booking_user_id` = %s, `booking_room_id` = %s, `booking_from_date` = %s, `booking_to_date` = %s, `booking_persons` = %s, `booking_room_price` = %s, `booking_total_cost` = %s, `booking_days` = %s, `booking_date` = %s
 		""", (
             request.session.get('user_id', None),
             request.POST['room_id'],

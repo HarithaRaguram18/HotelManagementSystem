@@ -103,9 +103,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'HotelManagemnetSystem',
+            'NAME': 'hotel_booking_system',
             'USER':'root',
-            'PASSWORD':'haritha',
+            'PASSWORD':'liveandletlive',
             'HOST':'localhost',
             'PORT':'3306'
         }
